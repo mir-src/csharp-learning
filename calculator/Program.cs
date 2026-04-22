@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 static int ReadInt(string prompt)
 {
     while (true)
@@ -54,8 +54,3 @@ while (true)
 }
 
 Console.WriteLine("Goodbye, thank you for using the calculator.");
-
-
-
-
-
