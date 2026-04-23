@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="calculator/calculator.csproj" />
   <Project Path="playground/playground.csproj" Id="cde6f0b5-f74d-49f9-8b6a-fe79fa1e5f6d" />
+  <Project Path="StudentManager/StudentManager.csproj" Id="fb8c56a0-71ce-405f-b6f8-d0e084a021bd" />
   <Project Path="ToDoList/ToDoList.csproj" Id="1685c69d-3186-41cc-a9f6-03a3826337a4" />
 </Solution>
