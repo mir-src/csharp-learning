@@ -16,10 +16,102 @@ class Program
             Frozen = frozen;
         }
 
+        public void AddMoney(int amount)
+        {
+            CheckFrozen();
+            ValidateAmount(amount);
+            Balance += amount;
+        }
+
+        public void Withdraw(int amount)
+        {
+            CheckFrozen();
+            ValidateAmount(amount);
+            CheckWithdraw(amount);
+            Balance -= amount;
+        }
+        public int Transfer(int amount)
+        {
+            CheckFrozen();
+            CheckWithdraw(amount);
+            return amount; 
+        }
+        public void SwitchState()
+        {
+            Frozen = !Frozen;
+        }
+
+        private void ValidateAmount(int amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Invalid Amount");
+        }
+
+        private void CheckWithdraw(int amount)
+        {
+            if (Balance < amount)
+                throw new ArgumentException("Insufficient funds");
+        }
+
+        private void CheckFrozen()
+        {
+            if (Frozen)
+                throw new InvalidOperationException("Account is frozen");
+        }
 
     }
     public static void Main(string[] args)
     {
+        Bank account = new Bank("Cornelia", 100);
+        Bank secondAccount = new Bank("Iulian", 100);
+        Console.WriteLine(account.Name);
+        Console.WriteLine(account.Balance);
+        Console.WriteLine(account.Frozen);
+
+        Console.WriteLine("---------");
+        account.AddMoney(200);
+        Console.WriteLine(account.Balance);
+
+        account.SwitchState();
+        account.SwitchState();
+
+        try
+        {
+            account.Withdraw(600);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        Console.WriteLine(account.Balance);
+
+        Console.WriteLine($"Name: {account.Name} | {account.Balance}");
+        Console.WriteLine($"Name: {secondAccount.Name} | {secondAccount.Balance}");
+
+        try
+        {
+            account.Transfer(200);
+            account.Withdraw(200);
+            secondAccount.AddMoney(200);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        Console.WriteLine($"Name: {account.Name} | {account.Balance}");
+        Console.WriteLine($"Name: {secondAccount.Name} | {secondAccount.Balance}");
+
+        
+
+
+        
+
+
+
+
+        
+        /*
         Console.Clear();
         Console.WriteLine("---Bank System---");
         Console.WriteLine("1. Create Account");
@@ -32,6 +124,7 @@ class Program
 
         Console.WriteLine("\n Type any key to go back to Menu...");
         Console.ReadKey();
+        */
     }
 }
 
