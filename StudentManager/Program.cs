@@ -135,6 +135,30 @@ class Program
 
                     break;
                 case "6":
+                    Console.WriteLine("Enter the name of the student:");
+                    string sName = Console.ReadLine();
+                    Student fStudent = studentList.Find(s => s.Name.Equals(sName, StringComparison.OrdinalIgnoreCase));
+
+
+                    if (fStudent == null)
+                    {
+                        Console.Write("Student doesn't exist.");
+                        break;
+                    }
+
+                    Console.WriteLine("Enter the subject to remove.");
+                    string subj = Console.ReadLine();
+
+                    if (!fStudent.Grades.ContainsKey(subj))
+                    {
+                        Console.WriteLine("The subject doesn't exist.");
+                        break;
+                    }
+
+                    fStudent.Grades.Remove(subj);
+
+                    Console.WriteLine("Subject removed succesfully.");
+
                     break;
                 case "7":
                     return;
