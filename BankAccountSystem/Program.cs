@@ -3,6 +3,19 @@ namespace BankAccountSystem;
 
 class Program
 {
+    class Bank
+    {
+        private string _name;
+        private int _balance;
+        private bool _frozen;
+
+        public Bank(string name, int balance, bool frozen = false)
+        {
+            _name = name;
+            _balance = balance;
+            _frozen = frozen;
+        }
+    }
     public static void Main(string[] args)
     {
         Console.Clear();
@@ -21,9 +34,9 @@ class Program
 }
 
 /// class BankAccounts  
-/// account name (string) public 
-/// account balance (int) private 
-/// account frozen (bool) private
+/// account name (string)  
+/// account balance (int)  
+/// account frozen (bool) 
 
 /// Add money - Withdraw money - Transfer money between two accounts 
 /// Remove account - Create account - Toggle frozen account switch 
