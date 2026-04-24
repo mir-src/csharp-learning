@@ -18,23 +18,101 @@ class Program
 
         public void AddGrade(string name, int grade)
         {
-            Grades[name] = grade; 
+            if (grade < 100 && grade > 0) {
+                Grades[name] = grade;
+            }
         }
     }
     public static void Main(string[] args)
     {
-        Student s = new Student("Alex");
-        s.Grades["Math"] = 95;
-        s.Grades["English"] = 88;
+        List<Student> studentList = new List<Student>();
 
-        Student c = new Student("Cornelia");
-
-        c.AddGrade("Indonesian", 100);
-        c.AddGrade("Sport", 100);
-
-        foreach (var pair in c.Grades)
+        while (true)
         {
-            Console.WriteLine($"{pair.Key} -> {pair.Value}");
+            Console.Clear();
+            Console.WriteLine("---------------");
+            Console.WriteLine("---MENU---");
+            Console.WriteLine("1. Add Student to manager");
+            Console.WriteLine("2. Show Student List");
+            Console.WriteLine("3. Remove Student from manager");
+            Console.WriteLine("4. Add Grade to student");
+            Console.WriteLine("5. Change Grade of student");
+            Console.WriteLine("6. Remove Domain (e.g. English, Computer Science)");
+            Console.WriteLine("7. Quit");
+            Console.WriteLine("---------------");
+
+
+            string input = Console.ReadLine().Trim();
+
+            if (string.IsNullOrEmpty(input)) { continue; }
+            switch (input)
+            {
+                case "1":
+                    Console.WriteLine("Enter the name of the student:");
+                    string name = Console.ReadLine();
+                    studentList.Add(new Student(name));
+                    break;
+                case "2":
+                    foreach (Student student in studentList)
+                    {
+                        Console.WriteLine($"\nStudent: {student.Name}");
+                        foreach (var Grade in student.Grades)
+                        {
+                            Console.WriteLine($"{Grade.Key} -> {Grade.Value}");
+                        }
+                        Console.WriteLine("----------------");
+                    }
+                    break;
+                case "3":
+                    Console.WriteLine("Enter the name of the student to remove:");
+                    string studentName = Console.ReadLine();
+                    var removed = studentList.RemoveAll(student => student.Name == studentName);
+                    if (removed > 0)
+                    {
+                        Console.WriteLine($"The student {studentName} has been removed succesfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The student '{studentName}' doesn't exist.");
+                    }
+                    break;
+                case "4":
+                    Console.WriteLine("Enter the name of the student you want to add a grade to:");
+                    string studentNameGrade = Console.ReadLine();
+
+                    Student foundStudent = studentList.Find(s => s.Name.Equals(studentNameGrade, StringComparison.OrdinalIgnoreCase));
+                    if (foundStudent == null)
+                    {
+                        Console.WriteLine("Student Not Found.");
+                        break;
+                    }
+                    Console.WriteLine("Enter subject:");
+                    string subject = Console.ReadLine();
+
+                    Console.WriteLine("Enter grade:");
+                    if (!int.TryParse(Console.ReadLine(), out int grade)){
+                        Console.WriteLine("Invalid grade.");
+                        break;
+                    }
+                    var validGrade = grade;  
+                    if (validGrade < 0 || validGrade > 100) {
+                        Console.WriteLine("Invalid grade");
+                        break;
+                    }
+
+                    foundStudent.AddGrade(subject, grade);
+
+                    Console.WriteLine("Grade added succesfully.");
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    break;
+                case "7":
+                    return;
+            }
+            Console.WriteLine("\n Press any key to return to menu...");
+            Console.ReadKey();
         }
     }
 }
