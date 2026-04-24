@@ -18,8 +18,13 @@ class Program
 
         public void AddGrade(string name, int grade)
         {
-            if (grade < 100 && grade > 0) {
+            if (grade <= 100 && grade > 0) {
                 Grades[name] = grade;
+                Console.WriteLine("Grade added succesfully.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid grade, bigger than 100 or smaller than 1");
             }
         }
     }
@@ -94,17 +99,40 @@ class Program
                         Console.WriteLine("Invalid grade.");
                         break;
                     }
-                    var validGrade = grade;  
-                    if (validGrade < 0 || validGrade > 100) {
-                        Console.WriteLine("Invalid grade");
-                        break;
-                    }
 
                     foundStudent.AddGrade(subject, grade);
 
-                    Console.WriteLine("Grade added succesfully.");
                     break;
                 case "5":
+                    Console.WriteLine("Change grade of Student.");
+                    string studentNameChange = Console.ReadLine();
+
+                    Student changeStudent = studentList.Find(s => s.Name.Equals(studentNameChange, StringComparison.OrdinalIgnoreCase));
+                    if (changeStudent == null)
+                    {
+                        Console.WriteLine("Student Not Found.");
+                        break;
+                    }
+                    Console.WriteLine("Enter subject:");
+                    string Subject = Console.ReadLine();
+
+                    if (!changeStudent.Grades.ContainsKey(Subject)) {
+                        Console.WriteLine("Subject Not Found.");
+                        break;
+                    }
+
+
+                    Console.WriteLine("Enter a grade (int):");
+                    if (!int.TryParse(Console.ReadLine(), out int grd))
+                    {
+                        Console.WriteLine("Invalid grade or Student doesn't exist.");
+                        break;
+                    }
+
+                    changeStudent.Grades[Subject] = grd;
+
+                    Console.WriteLine("Grade changed succesfully.");
+
                     break;
                 case "6":
                     break;
