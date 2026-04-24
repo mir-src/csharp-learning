@@ -5,16 +5,18 @@ class Program
 {
     class Bank
     {
-        private string _name;
-        private int _balance;
-        private bool _frozen;
+        public string Name { get; private set; }
+        public int Balance { get; private set; }
+        public bool Frozen { get; private set; }
 
         public Bank(string name, int balance, bool frozen = false)
         {
-            _name = name;
-            _balance = balance;
-            _frozen = frozen;
+            Name = name;
+            Balance = balance;
+            Frozen = frozen;
         }
+
+
     }
     public static void Main(string[] args)
     {
