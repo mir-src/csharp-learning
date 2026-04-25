@@ -112,7 +112,7 @@ class Program
         {
             if (Frozen)
             {
-                Console.WriteLine("Can't procced. Account is frozen.");
+                Console.WriteLine("Can't proceed. Account is frozen.");
                 return "invalid";
             }
             else
@@ -138,7 +138,7 @@ class Program
             Console.WriteLine("7. Show Accounts");
             Console.WriteLine("8. Quit Menu");
 
-            string choice = Console.ReadLine()?.Trim();
+            string? choice = Console.ReadLine()?.Trim();
             if (string.IsNullOrEmpty(choice))
             {
                 Console.WriteLine("Enter a valid option.");
@@ -162,7 +162,7 @@ class Program
                 case "2":
                     Console.Write("Enter Account Name: ");
                     string c2Name = Helpers.ReadString();
-                    Bank c2Found = bankList.Find(a => a.Name == c2Name);
+                    Bank? c2Found = bankList.Find(a => a.Name == c2Name);
 
                     if (c2Found == null)
                     {
@@ -178,7 +178,7 @@ class Program
                     string c3Name = Helpers.ReadString();
                     Console.WriteLine();
 
-                    Bank c3Found = bankList.Find(a => a.Name == c3Name);
+                    Bank? c3Found = bankList.Find(a => a.Name == c3Name);
                     if (c3Found == null)
                     {
                         Console.WriteLine("The entered account doesn't exist");
@@ -195,7 +195,7 @@ class Program
                     string c4Name = Helpers.ReadString();
                     Console.WriteLine();
 
-                    Bank c4Found = bankList.Find(a => a.Name == c4Name);
+                    Bank? c4Found = bankList.Find(a => a.Name == c4Name);
                     if (c4Found == null)
                     {
                         Console.WriteLine("The entered account doesn't exist");
@@ -207,13 +207,50 @@ class Program
 
                     break;
                 case "5":
+                    Console.Write("Name of Account to transfer FROM: ");
+                    string f5Name = Helpers.ReadString();
+                    Console.WriteLine();
+                    
+                    Console.Write("Name of Account to transfer TO: ");
+                    string t5Name = Helpers.ReadString();
+                    Console.WriteLine();
+
+                    Bank? f5Found = bankList.Find(a => a.Name == f5Name);
+                    if (f5Found == null)
+                    {
+                        Console.WriteLine($"Account: {f5Name} doesn't exist");
+                        break;
+                    }
+                    Bank? t5Found = bankList.Find(a => a.Name == t5Name);
+                    if (t5Found == null)
+                    {
+                        Console.WriteLine($"Account: {t5Name} doesn't exist");
+                        break;
+                    }
+                    Console.Write("Enter how much you want to transfer: ");
+                    int transferAmount = Helpers.ReadInt();
+                    Console.WriteLine();
+
+                    int f5Money = f5Found.Transfer(transferAmount);
+
+                    if (f5Found.Frozen == true || t5Found.Frozen == true)
+                    {
+                        Console.WriteLine("One of the accounts is Frozen. Can't proceed.");
+                        break;
+                    }
+                    f5Found.Withdraw(f5Money);
+
+                    t5Found.AddMoney(f5Money);
+
+                    Console.WriteLine("Money transferred succesfully.");
+
                     break;
                 case "6":
                     Console.Write("Enter account name: ");
                     string c6Name = Helpers.ReadString();
                     Console.WriteLine();
 
-                    Bank c6Found = bankList.Find(a => a.Name == c6Name);
+                    Bank? c6Found = bankList.Find(a => a.Name == c6Name);
                     if (c6Found == null)
                     {
                         Console.WriteLine("Account doesn't exist.");
