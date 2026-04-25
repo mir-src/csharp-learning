@@ -7,10 +7,27 @@ class Program
     {
         public static int ReadInt()
         {
-            var input = Console.ReadLine();
-            if (int.TryParse(input, out var output)) return output;
-            else throw new ArgumentException("Invalid int");
-        }  
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out var output)) return output;
+                else
+                {
+                    Console.WriteLine("Invalid number (int).");
+                }
+            }
+        }
+        public static string ReadString()
+        {
+            while (true) {
+                var stringVar = Console.ReadLine();
+                if (!string.IsNullOrEmpty(stringVar)) return stringVar;
+                else
+                {
+                    Console.WriteLine("You didn't type anything. (Invalid string)");
+                }
+            }
+        }
     }
     class Bank
     {
@@ -71,19 +88,20 @@ class Program
     }
     public static void Main(string[] args)
     {
-        Console.Clear();
-        Console.WriteLine("---Bank System---");
-        Console.WriteLine("1. Create Account");
-        Console.WriteLine("2. Remove Account");
-        Console.WriteLine("3. Add Money");
-        Console.WriteLine("4. Withdraw Money");
-        Console.WriteLine("5. Transfer Money");
-        Console.WriteLine("6. Freeze or Unfreeze Account");
-        Console.WriteLine("7. Quit Menu");
-
         List<Bank> bankList = new List<Bank>();
 
         while (true) { 
+            Console.Clear();
+            Console.WriteLine("---Bank System---");
+            Console.WriteLine("1. Create Account");
+            Console.WriteLine("2. Remove Account");
+            Console.WriteLine("3. Add Money");
+            Console.WriteLine("4. Withdraw Money");
+            Console.WriteLine("5. Transfer Money");
+            Console.WriteLine("6. Freeze or Unfreeze Account");
+            Console.WriteLine("7. Show Accounts");
+            Console.WriteLine("8. Quit Menu");
+
             string choice = Console.ReadLine()?.Trim();
             if (string.IsNullOrEmpty(choice))
             {
@@ -93,34 +111,34 @@ class Program
             switch (choice)
             {
                 case "1":
-                    Console.Write("Enter name of account: ");
-                    string c1Name = Console.ReadLine();
+                    Console.Write("Enter Account Name: ");
+                    string c1Name = Helpers.ReadString();
                     Console.WriteLine();
 
-                    if (string.IsNullOrEmpty(c1Name))
-                    {
-                        Console.WriteLine("Invalid account name.");
-                        break;
-                    }
-
-                    Console.Write("Enter current Balance: ");
-                    int c1Input = Helpers.ReadInt();
-                    try
-                    {
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        break;
-                    }
-                    int c1Balance = c1Input;
+                    Console.Write("Enter Balance: ");
+                    int c1Balance = Helpers.ReadInt();
                     Console.WriteLine();
 
-                    bankList.Add(new Bank(c1Name,c1Balance));
+                    bankList.Add(new Bank(c1Name, c1Balance));
                     Console.WriteLine($"Bank Account: {c1Name} | Created");
-
+                    Console.WriteLine($"Initial Balance: {c1Balance}");
                     break;
                 case "2":
+                    Console.Write("Enter Account Name: ");
+                    string c2Name = Console.ReadLine();
+                    Bank c2Found = bankList.Find(a => a.Name == c2Name);
+                    if (c2Name == null)
+                    {
+                        break;
+                    }
+                    if (c2Found == null)
+                    {
+                        Console.WriteLine("The entered account doesn't exist");
+                        break;
+                    }
+                    var removed = bankList.RemoveAll(a => a.Name == c2Name);
+                    Console.WriteLine("Bank Account deleted succesfully.");
+
                     break;
                 case "3":
                     break;
@@ -131,13 +149,12 @@ class Program
                 case "6":
                     break;
                 case "7":
+                    break;
+                case "8":
                     return;
             }
-            break;
-        }
-
         Console.WriteLine("\n Type any key to go back to Menu...");
         Console.ReadKey();
-        
+        }
     }
 }
