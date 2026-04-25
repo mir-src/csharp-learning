@@ -47,6 +47,7 @@ class Program
             CheckFrozen();
             ValidateAmount(amount);
             Balance += amount;
+            Console.WriteLine("Money added succesfully.");
         }
 
         public void Withdraw(int amount)
@@ -55,6 +56,7 @@ class Program
             ValidateAmount(amount);
             CheckWithdraw(amount);
             Balance -= amount;
+            Console.WriteLine("Money withdrawn succesfully.");
         }
         public int Transfer(int amount)
         {
@@ -125,12 +127,9 @@ class Program
                     break;
                 case "2":
                     Console.Write("Enter Account Name: ");
-                    string c2Name = Console.ReadLine();
+                    string c2Name = Helpers.ReadString();
                     Bank c2Found = bankList.Find(a => a.Name == c2Name);
-                    if (c2Name == null)
-                    {
-                        break;
-                    }
+
                     if (c2Found == null)
                     {
                         Console.WriteLine("The entered account doesn't exist");
@@ -141,6 +140,21 @@ class Program
 
                     break;
                 case "3":
+                    Console.Write("Enter account name: ");
+                    string c3Name = Helpers.ReadString();
+                    Console.WriteLine();
+
+                    Bank c3Found = bankList.Find(a => a.Name == c3Name);
+                    if (c3Found == null)
+                    {
+                        Console.WriteLine("The entered account doesn't exist");
+                        break;
+                    }
+
+                    Console.Write("Enter amount to deposit: ");
+                    int c3Amount = Helpers.ReadInt();
+                    c3Found.AddMoney(c3Amount);
+
                     break;
                 case "4":
                     break;
