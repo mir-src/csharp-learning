@@ -211,6 +211,10 @@ class Program
                 case "6":
                     break;
                 case "7":
+                    foreach (Bank account in bankList)
+                    {
+                        Console.WriteLine($"Account: {account.Name} | Balance: {account.Balance} | Frozen Status: {account.Frozen}");
+                    }
                     break;
                 case "8":
                     return;
