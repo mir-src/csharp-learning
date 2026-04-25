@@ -18,7 +18,14 @@ class Program
         }
         public void RemoveStock(string product)
         {
-            Storage.Remove(product);
+            if (Storage.Remove(product))
+            {
+                Console.WriteLine("Product removed succesfully.");
+            }
+            else
+            {
+                Console.WriteLine("Product doesn't exist.");
+            }
         }
     }
     public static void Main(string[] args)
@@ -37,17 +44,34 @@ class Program
             switch (choice)
             {
                 case "1":
+                    Console.Write("Product name: ");
+                    string c1Product = Helpers.ReadString();
+                    Console.WriteLine();
+
+                    Console.Write("Amount: ");
+                    int c1Amount = Helpers.ReadInt();
+                    Console.WriteLine();
+
+                    inventory.AddToInventory(c1Product, c1Amount);
+                    Console.WriteLine($"Added: {c1Product} | {c1Amount}");
                     break;
                 case "2":
+                    Console.Write("Product name: ");
+                    string c2Product = Helpers.ReadString();
+                    inventory.RemoveStock(c2Product);
                     break;
                 case "3":
+                    foreach (KeyValuePair<string,int> item in inventory.Storage)
+                    {
+                        Console.WriteLine($"Key: {item.Key} | Value: {item.Value}");
+                    }
                     break;
                 case "4":
                     return;
             }
 
             Console.WriteLine("\nType any key to return to menu...");
-            Console.WriteLine("");
+            Console.ReadKey();
         }
     }
 }
