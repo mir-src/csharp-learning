@@ -23,20 +23,31 @@ class Program
     }
     public static void Main(string[] args)
     {
-        Inventory objectInventory = new Inventory();
-        int mAmount = Helpers.ReadInt();
-        string mProduct = Helpers.ReadString();
-        objectInventory.AddToInventory(mProduct,mAmount);
-        foreach (KeyValuePair<string,int> item in objectInventory.Storage)
+        Inventory inventory = new Inventory();
+        while (true)
         {
-            Console.WriteLine($"Key: {item.Key} | Value: {item.Value}");
-        }
+            Console.Clear();
+            Console.WriteLine("--- Menu ---");
+            Console.WriteLine("1. Add to inventory");
+            Console.WriteLine("2. Delete from inventory");
+            Console.WriteLine("3. Display Inventory");
+            Console.WriteLine("4. Quit Menu");
 
-        objectInventory.RemoveStock(mProduct);
-        Console.WriteLine("After removal");
-        foreach (KeyValuePair<string,int> item in objectInventory.Storage)
-        {
-            Console.WriteLine($"Key: {item.Key} | Value: {item.Value}");
+            string choice = Helpers.ReadString();
+            switch (choice)
+            {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    return;
+            }
+
+            Console.WriteLine("\nType any key to return to menu...");
+            Console.WriteLine("");
         }
     }
 }
