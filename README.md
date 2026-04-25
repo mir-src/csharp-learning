@@ -3,4 +3,6 @@
 - ToDoList
 - StudentManager
 - BankAccountSystem
-
+- InventorySystem
+- NumberGuesser
+- FileBasedToDoList
