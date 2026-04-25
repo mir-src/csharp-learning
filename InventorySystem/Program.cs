@@ -16,7 +16,10 @@ class Program
         {
             Storage[product] = amount;
         }
-
+        public void RemoveStock(string product)
+        {
+            Storage.Remove(product);
+        }
     }
     public static void Main(string[] args)
     {
@@ -24,6 +27,13 @@ class Program
         int mAmount = Helpers.ReadInt();
         string mProduct = Helpers.ReadString();
         objectInventory.AddToInventory(mProduct,mAmount);
+        foreach (KeyValuePair<string,int> item in objectInventory.Storage)
+        {
+            Console.WriteLine($"Key: {item.Key} | Value: {item.Value}");
+        }
+
+        objectInventory.RemoveStock(mProduct);
+        Console.WriteLine("After removal");
         foreach (KeyValuePair<string,int> item in objectInventory.Storage)
         {
             Console.WriteLine($"Key: {item.Key} | Value: {item.Value}");
