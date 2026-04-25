@@ -44,47 +44,81 @@ class Program
 
         public void AddMoney(int amount)
         {
-            CheckFrozen();
-            ValidateAmount(amount);
-            Balance += amount;
-            Console.WriteLine("Money added succesfully.");
+            if (CheckFrozen() == "valid" && ValidateAmount(amount) == "valid")
+            {
+                Balance += amount;
+                Console.WriteLine("Money added succesfully.");
+            }
+            else
+            {
+                Console.WriteLine("Couldn't add money.");
+            }
         }
 
         public void Withdraw(int amount)
         {
-            CheckFrozen();
-            ValidateAmount(amount);
-            CheckWithdraw(amount);
-            Balance -= amount;
-            Console.WriteLine("Money withdrawn succesfully.");
+            if (CheckFrozen() == "valid" && ValidateAmount(amount) == "valid" && CheckWithdraw(amount) == "valid")
+            {
+                Balance -= amount;
+                Console.WriteLine("Money withdrawn succesfully.");
+            }
+            else
+            {
+                Console.WriteLine("Couldn't withdraw money.");
+            }
         }
         public int Transfer(int amount)
         {
-            CheckFrozen();
-            CheckWithdraw(amount);
-            return amount; 
+            if (CheckFrozen() == "valid" && CheckWithdraw(amount) == "valid")
+            {
+                return amount; 
+            }
+            else
+            {
+                return 0;
+            }
         }
         public void SwitchState()
         {
             Frozen = !Frozen;
         }
 
-        private void ValidateAmount(int amount)
+        private string ValidateAmount(int amount)
         {
             if (amount <= 0)
-                throw new ArgumentException("Invalid Amount");
+            {
+                Console.WriteLine("Invalid amount");
+                return "invalid";
+            }
+            else
+            {
+                return "valid";
+            }
         }
 
-        private void CheckWithdraw(int amount)
+        private string CheckWithdraw(int amount)
         {
             if (Balance < amount)
-                throw new ArgumentException("Insufficient funds");
+            {
+                return "invalid";
+            }
+            else
+            {
+                return "valid";
+            }
         }
 
-        private void CheckFrozen()
+        private string CheckFrozen()
         {
             if (Frozen)
-                throw new InvalidOperationException("Account is frozen");
+            {
+                Console.WriteLine("Can't procced. Account is frozen.");
+                return "invalid";
+            }
+            else
+            {
+                return "valid";
+            }
         }
 
     }
@@ -157,6 +191,20 @@ class Program
 
                     break;
                 case "4":
+                    Console.Write("Enter account name: ");
+                    string c4Name = Helpers.ReadString();
+                    Console.WriteLine();
+
+                    Bank c4Found = bankList.Find(a => a.Name == c4Name);
+                    if (c4Found == null)
+                    {
+                        Console.WriteLine("The entered account doesn't exist");
+                        break;
+                    }
+                    Console.Write("Enter amount to withdraw: ");
+                    int c4Amount = Helpers.ReadInt();
+                    c4Found.Withdraw(c4Amount);
+
                     break;
                 case "5":
                     break;
