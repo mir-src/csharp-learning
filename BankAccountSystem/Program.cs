@@ -209,6 +209,21 @@ class Program
                 case "5":
                     break;
                 case "6":
+                    Console.Write("Enter account name: ");
+                    string c6Name = Helpers.ReadString();
+                    Console.WriteLine();
+
+                    Bank c6Found = bankList.Find(a => a.Name == c6Name);
+                    if (c6Found == null)
+                    {
+                        Console.WriteLine("Account doesn't exist.");
+                        break;
+                    }
+                    else
+                        c6Found.SwitchState();
+
+                    Console.WriteLine($"Frozen Status: {c6Found.Frozen}");
+                    
                     break;
                 case "7":
                     foreach (Bank account in bankList)
