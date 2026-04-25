@@ -2,7 +2,7 @@
   <Project Path="BankAccountSystem/BankAccountSystem.csproj" Id="b46b1cd1-9b88-40ee-858f-e1e5cda26d51" />
   <Project Path="calculator/calculator.csproj" />
   <Project Path="InventorySystem/InventorySystem.csproj" Id="5f364fb2-935e-46ec-a9df-7c6ae6721e4b" />
-  <Project Path="playground/playground.csproj" Id="cde6f0b5-f74d-49f9-8b6a-fe79fa1e5f6d" />
+  <Project Path="NumberGuesser/NumberGuesser.csproj" Id="dad80c8a-dca0-48e9-96bd-4a219064ab4d" />
   <Project Path="StudentManager/StudentManager.csproj" Id="fb8c56a0-71ce-405f-b6f8-d0e084a021bd" />
   <Project Path="ToDoList/ToDoList.csproj" Id="1685c69d-3186-41cc-a9f6-03a3826337a4" />
 </Solution>
