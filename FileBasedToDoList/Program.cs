@@ -32,15 +32,29 @@ class Program
             {
                 case "1":
                     id++;
+                    Console.Write("Enter name of task: ");
                     string? c1Name = Console.ReadLine();
+                    Console.WriteLine();
 
                     if (string.IsNullOrEmpty(c1Name)) break;
                     tasks.Add(new Task(id,c1Name));
 
                     Storage.Save(filePath, tasks);
+                    Console.WriteLine("Task added succesfully.");
 
                     break;
                 case "2":
+                    Console.Write("Enter ID of task to delete: ");
+                    if (!int.TryParse(Console.ReadLine(), out var c2Id))
+                    {
+                        Console.WriteLine("Invalid integer.");
+                        break;
+                    }
+                    Console.WriteLine();
+                    tasks.RemoveAll(t => t.Id == c2Id);
+                    Storage.Save(filePath, tasks);
+                    Console.WriteLine("Task deleted succesfully.");
+
                     break;
                 case "3":
                     break;
