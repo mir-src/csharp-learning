@@ -19,8 +19,7 @@ class Program
             Console.WriteLine("3. Toggle Task Completion");
             Console.WriteLine("4. Display Tasks");
             Console.WriteLine("5. Delete All Tasks");
-            Console.WriteLine("6. Mark All Tasks as Complete/Incomplete");
-            Console.WriteLine("7. Quit Menu");
+            Console.WriteLine("6. Quit Menu");
 
             Console.Write("\nSelect your option: ");
             string? choice = Console.ReadLine();
@@ -57,6 +56,23 @@ class Program
 
                     break;
                 case "3":
+                    Console.Write("Enter ID of task to toggle completion for: ");
+                    if (!int.TryParse(Console.ReadLine(), out var c3Id))
+                    {
+                        Console.WriteLine("Invalid integer.");
+                        break;
+                    }
+                    Console.WriteLine();
+                    var found = tasks.Find(t => t.Id == c3Id);
+                    if (found == null)
+                    {
+                        Console.WriteLine("Item not found.");
+                        break;
+                    }
+                    found.Completed = !found.Completed;
+                    Storage.Save(filePath, tasks);
+                    Console.WriteLine(found.Completed ? "Task: Completed" : "Task: Not done");
+
                     break;
                 case "4":
                     Console.WriteLine("--- Tasks ---");
@@ -71,8 +87,6 @@ class Program
                     Storage.Save(filePath, tasks);
                     break;
                 case "6":
-                    break;
-                case "7":
                     return;
             }
 
