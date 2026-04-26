@@ -22,6 +22,7 @@ namespace FileBasedToDoList
         {
             string json = JsonSerializer.Serialize(list);
             File.WriteAllText(filepath, json);
+            Console.WriteLine("Saved To File");
         }
     }
 }
