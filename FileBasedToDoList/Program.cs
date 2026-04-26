@@ -9,6 +9,7 @@ class Program
         string filePath = "tasks.json";
         List<Task> tasks = new List<Task>();
         int id = 0;
+        Storage.Save(filePath, tasks);
 
         while (true)
         {
@@ -44,6 +45,11 @@ class Program
                 case "3":
                     break;
                 case "4":
+                    Console.WriteLine("--- Tasks ---");
+                    foreach (Task item in tasks)
+                    {
+                        Console.WriteLine($"ID: {item.Id} | task: {item.Name} | completed: {item.Completed}");
+                    }
                     break;
                 case "5":
                     break;
