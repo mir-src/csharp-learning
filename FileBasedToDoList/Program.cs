@@ -66,6 +66,9 @@ class Program
                     }
                     break;
                 case "5":
+                    tasks.Clear();
+                    Console.WriteLine("All items deleted succesfully.");
+                    Storage.Save(filePath, tasks);
                     break;
                 case "6":
                     break;
