@@ -45,49 +45,71 @@ class Program
                 Console.Write("\n");
             }
         }
+        public static Cell CheckWin(Cell[,] board)
+        {
+            Cell c = board[0, 0];
+
+            if (c != Cell.Empty && c == board[1, 1] && c == board[2, 2])
+            {
+                return c;
+            }
+            c = board[0, 2];
+            if (c != Cell.Empty && c == board[1, 1] && c == board[2, 0])
+            {
+                return c;
+            }
+            
+
+            for (int row=0; row<3; row++)
+            {
+                c = board[row, 0];
+                if (c != Cell.Empty && c == board[row, 1] && c == board[row, 2]) 
+                {
+                    return c;
+                }
+            }
+            for (int col=0; col<3; col++)
+            {
+                c = board[0, col];
+                if (c != Cell.Empty && c == board[1, col] && c == board[2, col])
+                {
+                    return c;
+                }
+            }
+            return Cell.Empty;
+        }
+
     }
     public static void Main(string[] args)
     {
         Cell[,] board = new Cell[3, 3];
+        int player = 1;
+
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("1. Start Game");
-            Console.WriteLine("2. Quit");
-
-            string choice = Console.ReadLine();
-            int player = 1;
-
-            if (string.IsNullOrWhiteSpace(choice))
+            Utils.Display(board);
+            if (player == 1)
             {
-                continue;
+                Utils.MakeMove(board, Cell.O);
+                player = 2;
             }
-
-            switch (choice)
+            else
             {
-                case "1":
-                    while (true)
-                    {
-                        Utils.Display(board);
-                        if (player == 1)
-                        {
-                            Utils.MakeMove(board, Cell.O);
-                            player = 2;
-                        }
-                        else
-                        {
-                            Utils.MakeMove(board, Cell.X);
-                            player = 1;
-                        }
-                        // Todo: Check Win condition
-                    }
-                    break;
-                case "2":
-                    return;
+                Utils.MakeMove(board, Cell.X);
+                player = 1;
             }
-
-            Console.WriteLine("\n Press a key to advance");
-            Console.ReadKey();
+            Cell win = Utils.CheckWin(board);
+            if (win == Cell.O)
+            {
+                Console.WriteLine($"Player 1 has WON ({win})");
+                return;
+            }
+            if (win == Cell.X)
+            {
+                Console.WriteLine($"Player 2 has WON ({win})");
+                return;
+            }
+            // Todo: Check no one won condition
         }
     }
 }
