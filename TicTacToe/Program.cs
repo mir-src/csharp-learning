@@ -9,7 +9,7 @@ class Program
     {
         public static void MakeMove(Cell[,] board, Cell player)
         {
-            Console.Write("Choose position (1-9)");
+            Console.Write("Choose position (1-9): ");
             if (!int.TryParse(Console.ReadLine(), out var number))
             {
                 Console.WriteLine($"'{number}' is not a number.");
@@ -78,15 +78,20 @@ class Program
             }
             return Cell.Empty;
         }
-
     }
     public static void Main(string[] args)
     {
         Cell[,] board = new Cell[3, 3];
         int player = 1;
+        int moves = 9;
 
         while (true)
         {
+            if (moves <= 0)
+            {
+                Console.WriteLine("No one has won...");
+                return;
+            }
             Utils.Display(board);
             if (player == 1)
             {
@@ -109,7 +114,7 @@ class Program
                 Console.WriteLine($"Player 2 has WON ({win})");
                 return;
             }
-            // Todo: Check no one won condition
+            moves--;
         }
     }
 }
