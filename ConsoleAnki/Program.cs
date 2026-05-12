@@ -48,6 +48,22 @@ class Program
                         Game.ShowCards(cards);
                         break;
                     case "3":
+                        Console.Write("Id of card to delete: ");
+                        if (!int.TryParse(Console.ReadLine(), out var c3Id))
+                        {
+                            Console.WriteLine("Invalid Id...");
+                            break;
+                        }
+                        var found = cards.Find(card => card.Id == c3Id);
+                        if (found == null)
+                        {
+                            Console.WriteLine("Card not found...");
+                            break;
+                        }
+
+                        cards.RemoveAll(card => card.Id == c3Id);
+                        Console.WriteLine($"Removed card with id = {c3Id}");
+                        
                         break;
                     case "4":
                         Console.Write("Front: ");
@@ -56,6 +72,7 @@ class Program
                         if (string.IsNullOrWhiteSpace(c4Front))
                         {
                             Console.WriteLine("Invalid Front of the card");
+                            break;
                         }
                         Console.Write("Back: ");
                         string c4Back = Console.ReadLine();
@@ -63,6 +80,7 @@ class Program
                         if (string.IsNullOrWhiteSpace(c4Front))
                         {
                             Console.WriteLine("Invalid Back of the card");
+                            break;
                         }
                         cards.Add(new Flashcard(id, c4Front, c4Back));
                         id++;
@@ -88,4 +106,4 @@ class Program
         Game.Start();
     }
 }
-// TODO: Add delete card from deck flow  
+// TODO: Review flow implementation  
