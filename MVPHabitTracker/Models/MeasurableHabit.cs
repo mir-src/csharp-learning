@@ -4,7 +4,8 @@ using System.Text;
 
 namespace MVPHabitTracker.Models
 {
-    internal class MeasurableHabit
+    internal class MeasurableHabit : Habit
     {
+        public Dictionary<DateOnly, int> Measurements { get; private set; }
     }
 }

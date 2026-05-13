@@ -6,5 +6,7 @@ namespace MVPHabitTracker.Models
 {
     internal class Habit
     {
+        public string Name { get; private set; }
+        public DateOnly CreatedAt { get; private set; } 
     }
 }

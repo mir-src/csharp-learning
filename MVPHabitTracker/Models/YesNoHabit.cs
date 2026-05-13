@@ -4,7 +4,8 @@ using System.Text;
 
 namespace MVPHabitTracker.Models
 {
-    internal class YesNoHabit
+    internal class YesNoHabit : Habit
     {
+        public HashSet<DateOnly> CompletedDates { get; private set; }
     }
 }
