@@ -8,5 +8,10 @@ namespace MVPHabitTracker.Models
     {
         public string Name { get; private set; }
         public DateOnly CreatedAt { get; private set; } 
+        public Habit(string name, DateOnly createdAt)
+        {
+            Name = name;
+            CreatedAt = createdAt;
+        }
     }
 }
